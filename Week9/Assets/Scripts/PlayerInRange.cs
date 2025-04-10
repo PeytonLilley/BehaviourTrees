@@ -39,11 +39,11 @@ namespace NodeCanvas.Tasks.Conditions {
 			if (distanceToPlayer < detectionDistance.value)
 			{
 				//Debug.Log("detected");
-				return false;
+				return true;
             }
 			else
 			{
-				return true;
+				return false;
 			}
 
 		}

@@ -8,6 +8,7 @@ namespace NodeCanvas.Tasks.Conditions {
 	public class IsAlarmCT : ConditionTask {
 
 		public BBParameter<bool> guard1Alarm;
+		//public bool test;
 
 		public BBParameter<GameObject> Guard1Object;
 
@@ -36,7 +37,11 @@ namespace NodeCanvas.Tasks.Conditions {
 
             Blackboard Guard1Blackboard = Guard1Object.value.GetComponent<Blackboard>();
             
-			guard1Alarm.value = Guard1Blackboard.GetVariableValue<bool>("alarm");
+			//test = Guard1Blackboard.GetVariableValue<bool>("alarm");
+
+			//guard1Alarm.value = test;
+
+           // guard1Alarm.value = Guard1Blackboard.GetVariableValue<bool>("alarm");
             
 			if (guard1Alarm.value == true)
 			{
