@@ -12,38 +12,34 @@ namespace NodeCanvas.Tasks.Actions {
 		public BBParameter<bool> hasArrived;
 
 
-		public float sampleRate;
-		public float sampleRadius;
+		public BBParameter <float> sampleRate;
+		public BBParameter <float> sampleRadius;
 		public BBParameter<Vector3> targetPosition;
 		private NavMeshAgent navAgent;
 		private Vector3 lastDestination;
 		private float timeSinceLastSample;
 
-		//Use for initialization. This is called only once in the lifetime of the task.
-		//Return null if init was successfull. Return an error string otherwise
 		protected override string OnInit() {
 			navAgent = agent.GetComponent<NavMeshAgent>();
 			return null;
 		}
 
-		//This is called once each time the task is enabled.
-		//Call EndAction() to mark the action as finished, either in success or failure.
-		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
 			
 		}
 
-		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
+			
+			// sampling for navigation based on navigation taught in class
 			timeSinceLastSample += Time.deltaTime;
-			if (timeSinceLastSample > sampleRate)
+			if (timeSinceLastSample > sampleRate.value)
 			{
 				timeSinceLastSample = 0;
 				if (lastDestination != targetPosition.value)
 				{
 					lastDestination = targetPosition.value;
 
-					NavMesh.SamplePosition(targetPosition.value, out NavMeshHit hitInfo, sampleRadius, NavMesh.AllAreas);
+					NavMesh.SamplePosition(targetPosition.value, out NavMeshHit hitInfo, sampleRadius.value, NavMesh.AllAreas);
 					navAgent.SetDestination(hitInfo.position);
 				}
 			}

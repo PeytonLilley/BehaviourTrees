@@ -11,19 +11,21 @@ namespace NodeCanvas.Tasks.Actions {
 
         public BBParameter<GameObject> Guard2Object;
 
-        //Use for initialization. This is called only once in the lifetime of the task.
-        //Return null if init was successfull. Return an error string otherwise
+        MeshRenderer guardColour;
+        public BBParameter<Material> GuardChaseMat;
+
         protected override string OnInit() {
 			return null;
 		}
 
-		//This is called once each time the task is enabled.
-		//Call EndAction() to mark the action as finished, either in success or failure.
-		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
 
+			// set up materials for colour changing
+            guardColour = agent.GetComponent<MeshRenderer>();
+            guardColour.material = GuardChaseMat.value;
+
+			// interaction with other enemy - send value of alarm to guard 2
             Blackboard Guard2Blackboard = Guard2Object.value.GetComponent<Blackboard>();
-            //bool guard1Alarm = Guard2Blackboard.GetVariableValue<bool>("guard1Alarm");
 			Guard2Blackboard.SetVariableValue("guard1Alarm", true);
             alarm = true;
 			
